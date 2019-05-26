@@ -8,11 +8,13 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 import java.util.ArrayList;
 import java.util.stream.Stream;
 
 @SpringBootApplication
+@EnableMongoRepositories("org.sid.dao")
 public class CatalogueServiceApplication {
 
     public static void main(String[] args) {
