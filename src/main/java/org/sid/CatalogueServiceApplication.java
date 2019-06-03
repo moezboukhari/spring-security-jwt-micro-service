@@ -4,9 +4,11 @@ import org.sid.dao.CategoryRepository;
 import org.sid.dao.ProductRepository;
 import org.sid.entities.Category;
 import org.sid.entities.Product;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
@@ -15,8 +17,10 @@ import java.util.stream.Stream;
 
 @SpringBootApplication
 @EnableMongoRepositories("org.sid.dao")
+@EnableDiscoveryClient
 public class CatalogueServiceApplication {
-
+@Value("${me.email}")
+public String x;
     public static void main(String[] args) {
         SpringApplication.run(CatalogueServiceApplication.class, args);
     }
@@ -47,6 +51,7 @@ public class CatalogueServiceApplication {
             productRepository.findAll().forEach(p->{
                 System.out.println(p.toString());
             });
+            System.out.println(x);
         };
     }
 

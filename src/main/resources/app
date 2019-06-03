@@ -1,0 +1,23 @@
+
+spring:
+#   application:
+#     name: catalService
+#   cloud:
+#     config:
+#       uri:
+#       - "http://localhost:8888"
+  data:
+    mongodb:
+      uri: mongodb+srv://admin:password1234@cluster0-9z5kr.mongodb.net/Catal?retryWrites=true
+# server:
+#   port: 8087
+# eureka:
+#   client:
+#     service-url:
+#       default-zone: "http/localhost:8761/eureka/"
+#     enabled: true
+#     registry-fetch-interval-seconds:  10
+#     instance-info-replication-interval-seconds: 20
+#   instance:
+#     lease-renewal-interval-in-seconds: 10
+#     lease-expiration-duration-in-seconds: 20

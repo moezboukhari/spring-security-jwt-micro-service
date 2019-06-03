@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: catalService
+  cloud:
+    config:
+    #   label: "springTestCloud"
+    #   discovery:
+    #     enabled: true
+    #     service-id: cloud-config
+      uri: "http://localhost:8888"
