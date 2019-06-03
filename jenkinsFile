@@ -1,0 +1,54 @@
+pipeline{
+    agent{
+        label "node"
+    }
+    stages{
+        stage("checkout"){
+            steps{
+                git credentialsId: '00cd870b-f5a8-439b-bc92-0be492eb557d',
+                url: 'https://github.com/moezboukhari/spring-security-jwt-micro-service.git'configured
+                echo "========executing A========"
+            }
+            post{
+                always{
+                    echo "========always========"
+                }
+                success{
+                    echo "========A executed successfully========"
+                }
+                failure{
+                    echo "========A execution failed========"
+                }
+            }
+        }
+    }
+    post{
+        always{
+            echo "========always========"
+        }
+        success{
+            echo "========pipeline executed successfully ========"
+        }
+        failure{
+            echo "========pipeline execution failed========"
+        }
+    }
+    stage("build"){
+        steps{
+            sh 'mvn clean verify'
+            echo "====++++executing build++++===="
+        }
+        post{
+            always{
+                echo "====++++always++++===="
+            }
+            success{
+                echo "====++++build executed succesfully++++===="
+            }
+            failure{
+                echo "====++++build execution failed++++===="
+            }
+    
+        }
+    }
+}
