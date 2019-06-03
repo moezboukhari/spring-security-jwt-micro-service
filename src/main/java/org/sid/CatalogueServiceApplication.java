@@ -9,8 +9,11 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
+
+import lombok.extern.log4j.Log4j2;
 
 import java.util.ArrayList;
 import java.util.stream.Stream;
@@ -18,6 +21,8 @@ import java.util.stream.Stream;
 @SpringBootApplication
 @EnableMongoRepositories("org.sid.dao")
 @EnableDiscoveryClient
+@RefreshScope
+@Log4j2
 public class CatalogueServiceApplication {
 @Value("${me.email}")
 public String x;
@@ -31,7 +36,8 @@ public String x;
             Stream.of("C1 Ordinateurs","C2 Imprimantes").forEach(c->{
                 categoryRepository.save(new Category(c.split(" ")[0],c.split(" ")[1],new ArrayList<>()));
             });
-            categoryRepository.findAll().forEach(System.out::println);
+            // categoryRepository.findAll().forEach(System.out::println);
+            categoryRepository.findAll().forEach(log::info);
 
             productRepository.deleteAll();
             Category c1=categoryRepository.findById("C1").get();
@@ -48,10 +54,8 @@ public String x;
                 categoryRepository.save(c2);
             });
 
-            productRepository.findAll().forEach(p->{
-                System.out.println(p.toString());
-            });
-            System.out.println(x);
+            productRepository.findAll().forEach(log::info );             //System.out.println(p.toString());
+            log.warn(x);
         };
     }
 
