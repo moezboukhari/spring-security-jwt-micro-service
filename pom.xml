@@ -115,5 +115,16 @@
             </plugin>
         </plugins>
     </build>
-
+<distributionManagement>
+    <repository>
+            <id>deployment</id>
+            <name>Internal Release</name>
+            <url>http://localhost:8081/repository/CATAL-RELEASE/</url>
+    </repository>
+    <snapshotRepository>
+            <id>deployment</id>
+            <name>Internal Snapshot Release</name>
+            <url>http://localhost:8081/repository/CATAL-SNAP/</url>
+    </snapshotRepository>
+</distributionManagement>
 </project>
