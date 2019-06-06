@@ -4,6 +4,8 @@ import org.sid.dao.CategoryRepository;
 import org.sid.dao.ProductRepository;
 import org.sid.entities.Category;
 import org.sid.entities.Product;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -13,7 +15,7 @@ import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
-import lombok.extern.log4j.Log4j2;
+
 
 import java.util.ArrayList;
 import java.util.stream.Stream;
@@ -22,12 +24,15 @@ import java.util.stream.Stream;
 @EnableMongoRepositories("org.sid.dao")
 @EnableDiscoveryClient
 @RefreshScope
-@Log4j2
 public class CatalogueServiceApplication {
 @Value("${me.email}")
 public String x;
+public  static final Logger logger = LoggerFactory.getLogger(CatalogueServiceApplication.class);
+
     public static void main(String[] args) {
+
         SpringApplication.run(CatalogueServiceApplication.class, args);
+        
     }
     @Bean
     CommandLineRunner start(CategoryRepository categoryRepository, ProductRepository  productRepository){
@@ -37,7 +42,8 @@ public String x;
                 categoryRepository.save(new Category(c.split(" ")[0],c.split(" ")[1],new ArrayList<>()));
             });
             // categoryRepository.findAll().forEach(System.out::println);
-            categoryRepository.findAll().forEach(log::info);
+            categoryRepository.findAll().forEach(x->logger.info(x.toString()));
+            
 
             productRepository.deleteAll();
             Category c1=categoryRepository.findById("C1").get();
@@ -54,8 +60,9 @@ public String x;
                 categoryRepository.save(c2);
             });
 
-            productRepository.findAll().forEach(log::info );             //System.out.println(p.toString());
-            log.warn(x);
+            productRepository.findAll().forEach(x->logger.error(x.toString()) );    
+                  //System.out.println(p.toString());
+            logger.warn(x);
         };
     }
 
