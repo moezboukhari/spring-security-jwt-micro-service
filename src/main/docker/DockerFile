@@ -1,0 +1,2 @@
+from java:8
+entrypoint ['java','-jar','catal-service.jar']
